@@ -1,0 +1,4 @@
+#
+# -- notes.txt
+#
+Builds on linux, macOS, and Windows with cygwin

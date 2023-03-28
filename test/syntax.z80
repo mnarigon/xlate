@@ -1,0 +1,30 @@
+	ld	(@sec),A		
+; z80 syntax tests
+; line numbers
+0001
+0002label
+0003label adc a,b
+0004 adc a,b
+0005adc:
+0006adc: adc a,b
+
+; star comment
+0001* adc a,b this is a star comment
+* adc a,c this is a star comment
+
+; multiple statements
+label xor a ! add a,b ! adc a,c
+
+; string arguments
+db 'this is a string don''t bother',0
+
+; indexing arguments
+ld a,(ix+dd)
+ld (ix+dd),a
+
+ld a,(ix)
+ld a,(ix+1)
+ld a,(ix-1)
+ld a,( ix - 1 )
+ld a,( ix )
+ld a,( ix + 1 ) ;comment

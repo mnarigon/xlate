@@ -1,0 +1,790 @@
+	title 'z80 mnemonics'
+;	maclib	z80	;uncomment after translation
+	org	0100h
+	;z80 opcodes in range 00h-ffh
+;00
+	nop
+	ld	bc,nnnn
+	ld	(bc),a
+	inc	bc
+	inc	b
+	dec	b
+	ld	b,nn
+	rlca
+	db	008h	;undefined
+	add	hl,bc
+	ld	a,(bc)
+	dec	bc
+	inc	c
+	dec	c
+	ld	c,nn
+	rrca
+;10
+	db	010h	;undefined
+	ld	de,nnnn
+	ld	(de),a
+	inc	de
+	inc	d
+	dec	d
+	ld	d,nn
+	rla
+	db	018h	;undefined
+	add	hl,de
+	ld	a,(de)
+	dec	de
+	inc	e
+	dec	e
+	ld	e,nn
+	rra
+;20
+	db	020h	;undefined
+	ld	hl,nnnn
+	ld	(nnnn),hl
+	inc	hl
+	inc	h
+	dec	h
+	ld	h,nn
+	daa
+	db	028h	;undefined
+	add	hl,hl
+	ld	hl,(nnnn)
+	dec	hl
+	inc	l
+	dec	l
+	ld	l,nn
+	cpl
+;30
+	db	030h	;undefined
+	ld	sp,nnnn
+	ld	(nnnn),a
+	inc	sp
+	inc	(hl)
+	dec	(hl)
+	ld	(hl),nn
+	scf
+	db	038h	;undefined
+	add	hl,sp
+	ld	a,(nnnn)
+	dec	sp
+	inc	a
+	dec	a
+	ld	a,nn
+	ccf
+;40
+	ld	b,b
+	ld	b,c
+	ld	b,d
+	ld	b,e
+	ld	b,h
+	ld	b,l
+	ld	b,(hl)
+	ld	b,a
+	ld	c,b
+	ld	c,c
+	ld	c,d
+	ld	c,e
+	ld	c,h
+	ld	c,l
+	ld	c,(hl)
+	ld	c,a
+;50
+	ld	d,b
+	ld	d,c
+	ld	d,d
+	ld	d,e
+	ld	d,h
+	ld	d,l
+	ld	d,(hl)
+	ld	d,a
+	ld	e,b
+	ld	e,c
+	ld	e,d
+	ld	e,e
+	ld	e,h
+	ld	e,l
+	ld	e,(hl)
+	ld	e,a
+;60
+	ld	h,b
+	ld	h,c
+	ld	h,d
+	ld	h,e
+	ld	h,h
+	ld	h,l
+	ld	h,(hl)
+	ld	h,a
+	ld	l,b
+	ld	l,c
+	ld	l,d
+	ld	l,e
+	ld	l,h
+	ld	l,l
+	ld	l,(hl)
+	ld	l,a
+;70
+	ld	(hl),b
+	ld	(hl),c
+	ld	(hl),d
+	ld	(hl),e
+	ld	(hl),h
+	ld	(hl),l
+	halt
+	ld	(hl),a
+	ld	a,b
+	ld	a,c
+	ld	a,d
+	ld	a,e
+	ld	a,h
+	ld	a,l
+	ld	a,(hl)
+	ld	a,a
+;80
+	add	a,b
+	add	a,c
+	add	a,d
+	add	a,e
+	add	a,h
+	add	a,l
+	add	a,(hl)
+	add	a,a
+	adc	a,b
+	adc	a,c
+	adc	a,d
+	adc	a,e
+	adc	a,h
+	adc	a,l
+	adc	a,(hl)
+	adc	a,a
+;90
+	sub	b
+	sub	c
+	sub	d
+	sub	e
+	sub	h
+	sub	l
+	sub	(hl)
+	sub	a
+	sbc	a,b
+	sbc	a,c
+	sbc	a,d
+	sbc	a,e
+	sbc	a,h
+	sbc	a,l
+	sbc	a,(hl)
+	sbc	a,a
+;a0
+	and	b
+	and	c
+	and	d
+	and	e
+	and	h
+	and	l
+	and	(hl)
+	and	a
+	xor	b
+	xor	c
+	xor	d
+	xor	e
+	xor	h
+	xor	l
+	xor	(hl)
+	xor	a
+;b0
+	or	b
+	or	c
+	or	d
+	or	e
+	or	h
+	or	l
+	or	(hl)
+	or	a
+	cp	b
+	cp	c
+	cp	d
+	cp	e
+	cp	h
+	cp	l
+	cp	(hl)
+	cp	a
+;c0
+	ret	nz
+	pop	bc
+	jp	nz,nnnn
+	jp	nnnn
+	call	nz,nnnn
+	push	bc
+	add	a,nn
+	rst	0h
+	ret	z
+	ret
+	jp	z,nnnn
+	db	0cbh	;undefined
+	call	z,nnnn
+	call	nnnn
+	adc	a,nn
+	rst	8h
+;d0
+	ret	nc
+	pop	de
+	jp	nc,nnnn
+	out	(nn),a
+	call	nc,nnnn
+	push	de
+	sub	nn
+	rst	10h
+	ret	c
+	db	0d9h	;undefined
+	jp	c,nnnn
+	in	a,(nn)
+	call	c,nnnn
+	db	0ddh	;undefined
+	sbc	a,nn
+	rst	18h
+;e0
+	ret	po
+	pop	hl
+	jp	po,nnnn
+	ex	(sp),hl
+	call	po,nnnn
+	push	hl
+	and	nn
+	rst	20h
+	ret	pe
+	jp	(hl)
+	jp	pe,nnnn
+	ex	de,hl
+	call	pe,nnnn
+	db	0edh	;undefined
+	xor	nn
+	rst	28h
+;f0
+	ret	p
+	pop	af
+	jp	p,nnnn
+	di
+	call	p,nnnn
+	push	af
+	or	nn
+	rst	30h
+	ret	m
+	ld	sp,hl
+	jp	m,nnnn
+	ei
+	call	m,nnnn
+	db	0fdh	;undefined
+	cp	nn
+	rst	38h
+
+	;z80 unique opcodes
+;cb 00
+	rlc	b
+	rlc	c
+	rlc	d
+	rlc	e
+	rlc	h
+	rlc	l
+	rlc	(hl)
+	rlc	a
+
+	rrc	b
+	rrc	c
+	rrc	d
+	rrc	e
+	rrc	h
+	rrc	l
+	rrc	(hl)
+	rrc	a
+
+;cb 10
+	rl	b
+	rl	c
+	rl	d
+	rl	e
+	rl	h
+	rl	l
+	rl	(hl)
+	rl	a
+
+	rr	b
+	rr	c
+	rr	d
+	rr	e
+	rr	h
+	rr	l
+	rr	(hl)
+	rr	a
+
+;cb 20
+	sla	b
+	sla	c
+	sla	d
+	sla	e
+	sla	h
+	sla	l
+	sla	(hl)
+	sla	a
+
+	sra	b
+	sra	c
+	sra	d
+	sra	e
+	sra	h
+	sra	l
+	sra	(hl)
+	sra	a
+
+;cb 38
+	srl	b
+	srl	c
+	srl	d
+	srl	e
+	srl	h
+	srl	l
+	srl	(hl)
+	srl	a
+
+;cb 40
+	bit	0,b
+	bit	0,c
+	bit	0,d
+	bit	0,e
+	bit	0,h
+	bit	0,l
+	bit	0,(hl)
+	bit	0,a
+
+	bit	1,b
+	bit	1,c
+	bit	1,d
+	bit	1,e
+	bit	1,h
+	bit	1,l
+	bit	1,(hl)
+	bit	1,a
+
+;cb 50
+	bit	2,b
+	bit	2,c
+	bit	2,d
+	bit	2,e
+	bit	2,h
+	bit	2,l
+	bit	2,(hl)
+	bit	2,a
+
+	bit	3,b
+	bit	3,c
+	bit	3,d
+	bit	3,e
+	bit	3,h
+	bit	3,l
+	bit	3,(hl)
+	bit	3,a
+;cb 60
+	bit	4,b
+	bit	4,c
+	bit	4,d
+	bit	4,e
+	bit	4,h
+	bit	4,l
+	bit	4,(hl)
+	bit	4,a
+
+	bit	5,b
+	bit	5,c
+	bit	5,d
+	bit	5,e
+	bit	5,h
+	bit	5,l
+	bit	5,(hl)
+	bit	5,a
+
+;cb 70
+	bit	6,b
+	bit	6,c
+	bit	6,d
+	bit	6,e
+	bit	6,h
+	bit	6,l
+	bit	6,(hl)
+	bit	6,a
+
+	bit	7,b
+	bit	7,c
+	bit	7,d
+	bit	7,e
+	bit	7,h
+	bit	7,l
+	bit	7,(hl)
+	bit	7,a
+
+;cb 80
+	res	0,b
+	res	0,c
+	res	0,d
+	res	0,e
+	res	0,h
+	res	0,l
+	res	0,(hl)
+	res	0,a
+
+	res	1,b
+	res	1,c
+	res	1,d
+	res	1,e
+	res	1,h
+	res	1,l
+	res	1,(hl)
+	res	1,a
+
+;cb 90
+	res	2,b
+	res	2,c
+	res	2,d
+	res	2,e
+	res	2,h
+	res	2,l
+	res	2,(hl)
+	res	2,a
+
+	res	3,b
+	res	3,c
+	res	3,d
+	res	3,e
+	res	3,h
+	res	3,l
+	res	3,(hl)
+	res	3,a
+;cb a0
+	res	4,b
+	res	4,c
+	res	4,d
+	res	4,e
+	res	4,h
+	res	4,l
+	res	4,(hl)
+	res	4,a
+
+	res	5,b
+	res	5,c
+	res	5,d
+	res	5,e
+	res	5,h
+	res	5,l
+	res	5,(hl)
+	res	5,a
+
+;cb b0
+	res	6,b
+	res	6,c
+	res	6,d
+	res	6,e
+	res	6,h
+	res	6,l
+	res	6,(hl)
+	res	6,a
+
+	res	7,b
+	res	7,c
+	res	7,d
+	res	7,e
+	res	7,h
+	res	7,l
+	res	7,(hl)
+	res	7,a
+
+;cb c0
+	set	0,b
+	set	0,c
+	set	0,d
+	set	0,e
+	set	0,h
+	set	0,l
+	set	0,(hl)
+	set	0,a
+
+	set	1,b
+	set	1,c
+	set	1,d
+	set	1,e
+	set	1,h
+	set	1,l
+	set	1,(hl)
+	set	1,a
+
+;cb d0
+	set	2,b
+	set	2,c
+	set	2,d
+	set	2,e
+	set	2,h
+	set	2,l
+	set	2,(hl)
+	set	2,a
+
+	set	3,b
+	set	3,c
+	set	3,d
+	set	3,e
+	set	3,h
+	set	3,l
+	set	3,(hl)
+	set	3,a
+
+;cb e0
+	set	4,b
+	set	4,c
+	set	4,d
+	set	4,e
+	set	4,h
+	set	4,l
+	set	4,(hl)
+	set	4,a
+
+	set	5,b
+	set	5,c
+	set	5,d
+	set	5,e
+	set	5,h
+	set	5,l
+	set	5,(hl)
+	set	5,a
+
+;cb f0
+	set	6,b
+	set	6,c
+	set	6,d
+	set	6,e
+	set	6,h
+	set	6,l
+	set	6,(hl)
+	set	6,a
+
+	set	7,b
+	set	7,c
+	set	7,d
+	set	7,e
+	set	7,h
+	set	7,l
+	set	7,(hl)
+	set	7,a
+
+;dd
+	add	ix,bc
+	add	ix,de
+	ld	ix,nnnn
+	ld	(nnnn),ix
+	inc	ix
+	add	ix,ix
+	ld	ix,(nnnn)
+	dec	ix
+	inc 	(ix+dd)
+	dec	(ix+dd)
+	ld	(ix+dd),nn
+	add	ix,sp
+	ld	b,(ix+dd)
+	ld	c,(ix+dd)
+	ld	d,(ix+dd)
+	ld	e,(ix+dd)
+	ld	h,(ix+dd)
+	ld	l,(ix+dd)
+	ld	(ix+dd),b
+	ld	(ix+dd),c
+	ld	(ix+dd),d
+	ld	(ix+dd),e
+	ld	(ix+dd),h
+	ld	(ix+dd),l
+	ld	(ix+dd),a
+	ld	a,(ix+dd)
+	add	a,(ix+dd)
+	adc	a,(ix+dd)
+	sub	(ix+dd)
+	sbc	a,(ix+dd)
+	and	(ix+dd)
+	xor	(ix+dd)
+	or	(ix+dd)
+	cp	(ix+dd)
+	pop	ix
+	ex	(sp),ix
+	push	ix
+	jp	(ix)
+	ld	sp,ix
+
+;dd cb
+	rlc	(ix+dd)
+	rrc	(ix+dd)
+	rl	(ix+dd)
+	rr	(ix+dd)
+	sla	(ix+dd)
+	sra	(ix+dd)
+	srl	(ix+dd)
+	bit	0,(ix+dd)
+	bit	1,(ix+dd)
+	bit	2,(ix+dd)
+	bit	3,(ix+dd)
+	bit	4,(ix+dd)
+	bit	5,(ix+dd)
+	bit	6,(ix+dd)
+	bit	7,(ix+dd)
+	res	0,(ix+dd)
+	res	1,(ix+dd)
+	res	2,(ix+dd)
+	res	3,(ix+dd)
+	res	4,(ix+dd)
+	res	5,(ix+dd)
+	res	6,(ix+dd)
+	res	7,(ix+dd)
+	set	0,(ix+dd)
+	set	1,(ix+dd)
+	set	2,(ix+dd)
+	set	3,(ix+dd)
+	set	4,(ix+dd)
+	set	5,(ix+dd)
+	set	6,(ix+dd)
+	set	7,(ix+dd)
+
+;ed 40
+	in	b,(c)
+	out	(c),b
+	sbc	hl,bc
+	ld	(nnnn),bc
+	neg
+	retn
+	im	0
+	ld	i,a
+	in	c,(c)
+	out	(c),c
+	adc	hl,bc
+	ld	bc,(nnnn)
+	reti
+
+;ed 50
+	in	d,(c)
+	out	(c),d
+	sbc	hl,de
+	ld	(nnnn),de
+	im	1
+	ld	a,i
+	in	e,(c)
+	out	(c),e
+	adc	hl,de
+	ld	de,(nnnn)
+	im	2
+
+;ed 60
+	in	h,(c)
+	out	(c),h
+	sbc	hl,hl
+	rrd
+	in	l,(c)
+	out	(c),l
+	adc	hl,hl
+	rld
+
+;ed 70
+	sbc	hl,sp
+	ld	(nnnn),sp
+	in	a,(c)
+	out	(c),a
+	adc	hl,sp
+	ld	sp,(nnnn)
+
+;ed a0
+	ldi
+	cpi
+	ini
+	outi
+	ldd
+	cpd
+	ind
+	outd
+
+;ed b0
+	ldir
+	cpir
+	inir
+	otir
+	lddr
+	cpdr
+	indr
+	otdr
+
+;fd
+	add	iy,bc
+	add	iy,de
+	ld	iy,nnnn
+	ld	(nnnn),iy
+	inc	iy
+	add	iy,iy
+	ld	iy,(nnnn)
+	dec	iy
+	inc 	(iy+dd)
+	dec	(iy+dd)
+	ld	(iy+dd),nn
+	add	iy,sp
+	ld	b,(iy+dd)
+	ld	c,(iy+dd)
+	ld	d,(iy+dd)
+	ld	e,(iy+dd)
+	ld	h,(iy+dd)
+	ld	l,(iy+dd)
+	ld	(iy+dd),b
+	ld	(iy+dd),c
+	ld	(iy+dd),d
+	ld	(iy+dd),e
+	ld	(iy+dd),h
+	ld	(iy+dd),l
+	ld	(iy+dd),a
+	ld	a,(iy+dd)
+	add	a,(iy+dd)
+	adc	a,(iy+dd)
+	sub	(iy+dd)
+	sbc	a,(iy+dd)
+	and	(iy+dd)
+	xor	(iy+dd)
+	or	(iy+dd)
+	cp	(iy+dd)
+	pop	iy
+	ex	(sp),iy
+	push	iy
+	jp	(iy)
+	ld	sp,iy
+
+;fd cb
+	rlc	(iy+dd)
+	rrc	(iy+dd)
+	rl	(iy+dd)
+	rr	(iy+dd)
+	sla	(iy+dd)
+	sra	(iy+dd)
+	srl	(iy+dd)
+	bit	0,(iy+dd)
+	bit	1,(iy+dd)
+	bit	2,(iy+dd)
+	bit	3,(iy+dd)
+	bit	4,(iy+dd)
+	bit	5,(iy+dd)
+	bit	6,(iy+dd)
+	bit	7,(iy+dd)
+	res	0,(iy+dd)
+	res	1,(iy+dd)
+	res	2,(iy+dd)
+	res	3,(iy+dd)
+	res	4,(iy+dd)
+	res	5,(iy+dd)
+	res	6,(iy+dd)
+	res	7,(iy+dd)
+	set	0,(iy+dd)
+	set	1,(iy+dd)
+	set	2,(iy+dd)
+	set	3,(iy+dd)
+	set	4,(iy+dd)
+	set	5,(iy+dd)
+	set	6,(iy+dd)
+	set	7,(iy+dd)
+
+;equates
+nnnn	equ	1234h
+nn	equ	56h
+dd	equ	78h
+	end
