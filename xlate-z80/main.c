@@ -26,15 +26,18 @@ int line_count;
 static buffer_t line;
 
 static void
-usage() {
-    fprintf(stderr, "usage: xlate-z80 [-c] [file]\n");
-    fprintf(stderr, "  translates Z80 mnemonics to the equivalent i8080 mnemonics\n");
-    fprintf(stderr, "  reads from file (or stdin if file not given on command line)\n");
-    fprintf(stderr, "    and translates the source, writing to stdout\n");
-    fprintf(stderr, "note:\n");
-    fprintf(stderr, "  xlatz80 will by default generate z80.lib macros\n");
-    fprintf(stderr, "options:\n");
-    fprintf(stderr, "  -c honor source file uppercase/lowercase usage\n");
+usage(void) {
+    fprintf(stderr,
+            "usage: xlate-z80 [-c] [-o file] [file]\n"
+            "  translates Z80 mnemonics to the equivalent i8080 mnemonics\n"
+            "  reads from file (or stdin if file not given on command line)\n"
+            "    and translates the source, writing to stdout (or file specified\n"
+            "    by the -o option)\n"
+            "note:\n"
+            "  xlate-z80 will by default generate z80.lib macros\n"
+            "options:\n"
+            "  -c honor source file uppercase/lowercase usage\n"
+            "  -o file output translation to file\n");
     exit(EXIT_FAILURE);
 }
 
@@ -42,16 +45,32 @@ int
 main(int argc, char *argv[]) {
     // -- process command line arguments
     int ch;
-    while ((ch = getopt(argc, argv, "c")) != -1) {
+    while ((ch = getopt(argc, argv, "co:")) != -1) {
         switch (ch) {
             case 'c':
                 cflag = 1;
                 break;
+            case 'o':
+                // -- output file
+                if (out_fp) {
+                    fprintf(stderr, "only one output file allowed");
+                    exit(EXIT_FAILURE);
+                }
+                out_fp = fopen(optarg, "w");
+                if (!out_fp) {
+                    perror("open");
+                    exit(EXIT_FAILURE);
+                }
             default:
                 usage();
         }
     }
     argv += optind;
+    argc -= optind;
+    if (argc > 1) {
+        fprintf(stderr, "only one input file allowed");
+        exit(EXIT_FAILURE);
+    }
 
     // -- open input file
     char *path = argv[0];
@@ -64,7 +83,9 @@ main(int argc, char *argv[]) {
             exit(EXIT_FAILURE);
         }
     }
-    out_fp = stdout;
+    if (!out_fp) {
+        out_fp = stdout;
+    }
 
     // -- read the input line by line
     int read;
