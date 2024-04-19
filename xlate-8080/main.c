@@ -63,6 +63,7 @@ main(int argc, char *argv[]) {
                     perror("open");
                     exit(EXIT_FAILURE);
                 }
+		break;
             default:
                 usage();
         }
