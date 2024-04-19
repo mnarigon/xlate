@@ -37,7 +37,7 @@ is_identifier_start(int ch) {
 
 bool
 is_identifier_continuation(int ch) {
-    return isalnum(ch) || ch == '?' || ch == '@' || ch == '$';
+    return isalnum(ch) || ch == '?' || ch == '@' || ch == '$' || ch == '_';
 }
 
 bool is_argument_end(int ch) {
