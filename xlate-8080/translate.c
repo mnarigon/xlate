@@ -157,7 +157,7 @@ do_argument(const char *arg) {
 static void
 prep_arguments(buffer_t *line, entry_t *entry) {
     // -- output the input line up to the mark
-    buffer_putline(line, get_pmark(), get_mark(line), stdout);
+    buffer_putline(line, get_pmark(), get_mark(line), out_fp);
     // -- scan line for the arguments
     buffer_reset(&argument0);
     buffer_reset(&argument1);
